@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEEVUP — Devis Holy Campus Tour</title>
+    <meta name="description" content="Devis Holy Campus Tour — roadshow véhicules, hôtessariat, accompagnement campus">
+    <style>
+        :root {
+            --kpmg-blue: #00338d;
+            --kpmg-dark: #0c2340;
+            --kpmg-cyan: #00a3a6;
+            --ink: #111827;
+            --muted: #64748b;
+            --line: #d7dde8;
+            --soft-line: #edf1f6;
+            --paper: #ffffff;
+            --page: #f4f7fb;
+            --section: #f8fafc;
+            --saving: #087f5b;
+            --danger: #b42318;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--page);
+            color: var(--ink);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.45;
+        }
+
+        .page {
+            width: min(1180px, calc(100% - 32px));
+            margin: 24px auto 48px;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(12, 35, 64, 0.12);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--kpmg-dark), var(--kpmg-blue));
+            color: white;
+            padding: 34px 40px 30px;
+            border-bottom: 5px solid var(--kpmg-cyan);
+        }
+
+        .brand-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 24px;
+            align-items: flex-start;
+            margin-bottom: 22px;
+        }
+
+        .brand {
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .case-label {
+            text-align: right;
+            font-size: 13px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.78);
+        }
+
+        h1 {
+            margin: 0;
+            max-width: 920px;
+            font-size: clamp(30px, 4.2vw, 54px);
+            line-height: 1;
+            letter-spacing: 0;
+        }
+
+        .mode {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 24px;
+            color: rgba(255, 255, 255, 0.88);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .mode span {
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 8px 10px;
+        }
+
+        main {
+            padding: 34px 40px 40px;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: minmax(240px, 1.1fr) repeat(3, minmax(160px, 0.8fr));
+            gap: 14px;
+            margin-bottom: 28px;
+            align-items: stretch;
+        }
+
+        .metric {
+            border: 1px solid var(--line);
+            background: var(--section);
+            border-radius: 18px;
+            padding: 20px;
+            min-height: 132px;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            gap: 12px;
+        }
+
+        .metric.primary {
+            background: var(--kpmg-dark);
+            color: white;
+            border-color: var(--kpmg-dark);
+        }
+
+        .metric-label {
+            margin: 0;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .metric.primary .metric-label {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .metric-value {
+            font-size: clamp(24px, 3.2vw, 42px);
+            line-height: 1;
+            font-weight: 900;
+            letter-spacing: 0;
+            align-self: end;
+        }
+
+        .metric-value.small {
+            font-size: clamp(22px, 2.4vw, 32px);
+        }
+
+        .metric-note {
+            min-height: 31px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .metric.primary .metric-note {
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .distribution {
+            grid-column: 1 / -1;
+            border: 1px solid var(--line);
+            background: white;
+            border-radius: 18px;
+            padding: 18px 20px;
+        }
+
+        .distribution-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: baseline;
+            margin-bottom: 14px;
+        }
+
+        .distribution-title {
+            margin: 0;
+            color: var(--kpmg-dark);
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .distribution-total {
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .stacked-bar {
+            display: flex;
+            height: 16px;
+            border-radius: 999px;
+            overflow: hidden;
+            background: var(--soft-line);
+            box-shadow: inset 0 0 0 1px rgba(12, 35, 64, 0.08);
+        }
+
+        .stacked-bar span {
+            display: block;
+            min-width: 3px;
+        }
+
+        .part-prestations {
+            background: var(--kpmg-blue);
+        }
+
+        .part-temps {
+            background: var(--kpmg-cyan);
+        }
+
+        .part-honoraires {
+            background: #7c3aed;
+        }
+
+        .part-assurance {
+            background: #f59e0b;
+        }
+
+        .part-portage {
+            background: #475569;
+        }
+
+        .distribution-legend {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .legend-item {
+            border: 1px solid var(--soft-line);
+            border-radius: 14px;
+            padding: 10px;
+            background: var(--section);
+        }
+
+        .legend-label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .legend-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 999px;
+            flex: 0 0 auto;
+        }
+
+        .legend-value {
+            display: block;
+            margin-top: 7px;
+            color: var(--ink);
+            font-size: 15px;
+            font-weight: 900;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .legend-percent {
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        section {
+            margin-top: 26px;
+            border: 1px solid var(--line);
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: center;
+            padding: 16px 18px;
+            background: var(--section);
+            border-bottom: 1px solid var(--line);
+        }
+
+        h2 {
+            margin: 0;
+            color: var(--kpmg-dark);
+            font-size: 18px;
+            line-height: 1.2;
+            letter-spacing: 0;
+        }
+
+        .section-total {
+            white-space: nowrap;
+            color: var(--kpmg-dark);
+            font-size: 16px;
+            font-weight: 900;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th {
+            background: white;
+            color: var(--muted);
+            font-size: 11px;
+            letter-spacing: 0.04em;
+            text-align: left;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--line);
+            padding: 11px 12px;
+            white-space: nowrap;
+        }
+
+        td {
+            border-bottom: 1px solid var(--soft-line);
+            padding: 11px 12px;
+            vertical-align: top;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .num {
+            text-align: right;
+            white-space: nowrap;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .center {
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .label {
+            font-weight: 700;
+        }
+
+        .subtotal td,
+        .total-ht td,
+        .total-ttc td {
+            font-weight: 900;
+        }
+
+        .subtotal td {
+            background: #eef5ff;
+            color: var(--kpmg-dark);
+        }
+
+        .total-ht td {
+            background: var(--kpmg-dark);
+            color: white;
+        }
+
+        .total-ttc td {
+            background: var(--kpmg-blue);
+            color: white;
+            font-size: 15px;
+        }
+
+        .saving {
+            color: var(--saving);
+            font-weight: 900;
+        }
+
+        .negative {
+            color: var(--danger);
+            font-weight: 900;
+        }
+
+        .conditions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            padding: 18px;
+        }
+
+        .condition {
+            border: 1px solid var(--line);
+            background: var(--section);
+            border-radius: 16px;
+            padding: 16px;
+        }
+
+        .condition h3 {
+            margin: 0 0 10px;
+            color: var(--kpmg-dark);
+            font-size: 14px;
+            line-height: 1.25;
+        }
+
+        .condition p {
+            margin: 0 0 16px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .condition strong {
+            display: block;
+            font-size: 26px;
+            line-height: 1;
+            color: var(--ink);
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            margin-top: 28px;
+            padding: 22px 0 0;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .topnav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2px;
+            padding: 0 18px;
+            background: var(--kpmg-dark);
+            border-bottom: 3px solid var(--kpmg-cyan);
+        }
+
+        .topnav .topnav-brand {
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-right: auto;
+            padding: 14px 10px 14px 0;
+        }
+
+        .topnav a {
+            color: rgba(255, 255, 255, 0.72);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            padding: 14px 16px;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -3px;
+            transition: color 0.15s ease;
+        }
+
+        .topnav a:hover {
+            color: #fff;
+        }
+
+        .topnav a.active {
+            color: #fff;
+            border-bottom-color: var(--kpmg-cyan);
+        }
+
+        @media (max-width: 920px) {
+            .page {
+                width: 100%;
+                margin: 0;
+                border-left: 0;
+                border-right: 0;
+            }
+
+            header,
+            main {
+                padding-left: 22px;
+                padding-right: 22px;
+            }
+
+            .brand-row,
+            footer {
+                flex-direction: column;
+            }
+
+            .case-label {
+                text-align: left;
+            }
+
+            .summary {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .distribution-legend {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .conditions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 620px) {
+            header,
+            main {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            .distribution-head {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .distribution-legend {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            table {
+                font-size: 12px;
+            }
+        }
+
+        @media print {
+            .topnav {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+            }
+
+            .page {
+                width: 100%;
+                margin: 0;
+                border: 0;
+                box-shadow: none;
+            }
+
+            header {
+                padding-top: 24px;
+            }
+
+            main {
+                padding-bottom: 0;
+            }
+
+            section {
+                break-inside: avoid;
+            }
+        }
+    
+        .cell-sub {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .seg-1 { background: #00338d; }
+        .seg-2 { background: #00a3a6; }
+        .seg-3 { background: #f59e0b; }
+        .seg-4 { background: #7c3aed; }
+        .seg-5 { background: #0ea5e9; }
+        .seg-6 { background: #475569; }
+
+        .distribution-legend.six {
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+        }
+
+        .option-tag {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: #fff7ed;
+            color: #b45309;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            vertical-align: middle;
+        }
+
+        .row-option td {
+            background: #fffdf8;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="page">
+        <header>
+            <div class="brand-row">
+                <div class="brand">WEEVUP — DEVIS</div>
+                <div class="case-label">Holy Campus Tour</div>
+            </div>
+            <h1>Holy Campus Tour</h1>
+            <div class="mode">
+                <span>Tournée campus — roadshow véhicules</span>
+                <span>TVA 0%</span>
+                <span>Bilan carbone : option (+1 800 € HT)</span>
+            </div>
+        </header>
+
+        <main>
+            <div class="summary" aria-label="Synthèse du devis">
+                <div class="metric primary">
+                    <p class="metric-label">TOTAL TTC</p>
+                    <div class="metric-value">200 481 €</div>
+                    <div class="metric-note">TVA 0% — exact : 200 481,03 €</div>
+                </div>
+                <div class="metric">
+                    <p class="metric-label">TOTAL HT</p>
+                    <div class="metric-value small">200 481 €</div>
+                    <div class="metric-note"></div>
+                </div>
+                <div class="metric">
+                    <p class="metric-label">Honoraires</p>
+                    <div class="metric-value small">14 508 €</div>
+                    <div class="metric-note">sur sous-total HT</div>
+                </div>
+                <div class="metric">
+                    <p class="metric-label">Sous-total prestations</p>
+                    <div class="metric-value small">185 973 €</div>
+                    <div class="metric-note">hors honoraires & options</div>
+                </div>
+                <div class="distribution">
+                    <div class="distribution-head">
+                        <p class="distribution-title">Répartition des postes</p>
+                        <span class="distribution-total">TOTAL HT : 200 481 €</span>
+                    </div>
+                    <div class="stacked-bar" aria-label="Répartition des postes du total HT">
+                        <span class="seg-1" style="width: 52.6%"></span>
+                        <span class="seg-2" style="width: 17.2%"></span>
+                        <span class="seg-3" style="width: 2.6%"></span>
+                        <span class="seg-4" style="width: 4.2%"></span>
+                        <span class="seg-5" style="width: 16.2%"></span>
+                        <span class="seg-6" style="width: 7.2%"></span>
+                    </div>
+                    <div class="distribution-legend six">
+                        <div class="legend-item">
+                            <span class="legend-label"><span class="legend-dot seg-1"></span>Véhicules roadshow</span>
+                            <span class="legend-value">105 403 €</span>
+                            <span class="legend-percent">52,6%</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-label"><span class="legend-dot seg-2"></span>Hôtessariat</span>
+                            <span class="legend-value">34 485 €</span>
+                            <span class="legend-percent">17,2%</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-label"><span class="legend-dot seg-3"></span>Mobilier & Matériel</span>
+                            <span class="legend-value">5 187 €</span>
+                            <span class="legend-percent">2,6%</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-label"><span class="legend-dot seg-4"></span>Accompagnement amont</span>
+                            <span class="legend-value">8 400 €</span>
+                            <span class="legend-percent">4,2%</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-label"><span class="legend-dot seg-5"></span>Accompagnement sur place</span>
+                            <span class="legend-value">32 498 €</span>
+                            <span class="legend-percent">16,2%</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-label"><span class="legend-dot seg-6"></span>Honoraires</span>
+                            <span class="legend-value">14 508 €</span>
+                            <span class="legend-percent">7,2%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section>
+                <div class="section-title">
+                    <h2>1. VÉHICULES ROADSHOW</h2>
+                    <div class="section-total">105 403,00 €</div>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Prestation</th>
+                                <th class="center">Qté</th>
+                                <th class="center">Unité</th>
+                                <th class="num">PU HT</th>
+                                <th class="num">Total HT</th>
+                                <th class="center">TVA</th>
+                                <th class="num">Total TTC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="label">Véhicule avec chauffeur / régisseur<span class="cell-sub">Sous réserve du planning final</span></td>
+                                <td class="center">1</td>
+                                <td class="center">forfait</td>
+                                <td class="num">74 982,00 €</td>
+                                <td class="num">74 982,00 €</td>
+                                <td class="center">0%</td>
+                                <td class="num">74 982,00 €</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Covering<span class="cell-sub">Sous réserve du covering choisi</span></td>
+                                <td class="center">1</td>
+                                <td class="center">forfait</td>
+                                <td class="num">30 421,00 €</td>
+                                <td class="num">30 421,00 €</td>
+                                <td class="center">0%</td>
+                                <td class="num">30 421,00 €</td>
+                            </tr>
+                            <tr class="subtotal">
+                                <td colspan="4">Total</td>
+                                <td class="num">105 403,00 €</td>
+                                <td class="center">0%</td>
+                                <td class="num">105 403,00 €</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section>
+                <div class="section-title">
+                    <h2>2. HÔTESSARIAT</h2>
+                    <div class="section-total">34 485,48 €</div>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Prestation</th>
+                                <th class="center">Qté</th>
+                                <th class="center">Unité</th>
+                                <th class="num">PU HT</th>
+                                <th class="num">Total HT</th>
+                                <th class="center">TVA</th>
+                                <th class="num">Total TTC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="label">Hôtessariat<span class="cell-sub">2 à 4 hôtes selon la taille des établissements ciblés — Sous réserve de validation du programme</span></td>
+                                <td class="center">1</td>
+                                <td class="center">forfait</td>
+                                <td class="num">34 485,48 €</td>
+                                <td class="num">34 485,48 €</td>
+                                <td class="center">0%</td>
+                                <td class="num">34 485,48 €</td>
+                            </tr>
+                            <tr class="subtotal">
+                                <td colspan="4">Total</td>
+                                <td class="num">34 485,48 €</td>
+                                <td class="center">0%</td>
+                                <td class="num">34 485,48 €</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section>
+                <div class="section-title">
+                    <h2>3. MOBILIER & MATÉRIEL</h2>
+                    <div class="section-total">5 187,00 €</div>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Prestation</th>
+                                <th class="center">Qté</th>
+                                <th class="center">Unité</th>
+                                <th class="num">PU HT</th>
+                                <th class="num">Total HT</th>
+                                <th class="center">TVA</th>
+                                <th class="num">Total TTC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="label">Mobilier & Matériel</td>
+                                <td class="center">1</td>
+                                <td class="center">forfait</td>
+                                <td class="num">5 187,00 €</td>
+                                <td class="num">5 187,00 €</td>
+                                <td class="center">0%</td>
+                                <td class="num">5 187,00 €</td>
+                            </tr>
+                            <tr class="subtotal">
+                                <td colspan="4">Total</td>
+                                <td class="num">5 187,00 €</td>
+                                <td class="center">0%</td>
+                                <td class="num">5 187,00 €</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section>
+                <div class="section-title">
+                    <h2>4. RSE</h2>
+                    <div class="section-total">Option</div>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Prestation</th>
+                                <th class="center">Qté</th>
+                                <th class="center">Unité</th>
+                                <th class="num">PU HT</th>
+                                <th class="num">Total HT</th>
+                                <th class="center">TVA</th>
+                                <th class="num">Total TTC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="row-option">
+                                <td class="label">Bilan carbone<span class="option-tag">Option</span><span class="cell-sub">Sur devis — non inclus dans le total</span></td>
+                                <td class="center">1</td>
+                                <td class="center">forfait</td>
+                                <td class="num">1 800,00 €</td>
+                                <td class="num">1 800,00 €</td>
+                                <td class="center">0%</td>
+                                <td class="num">1 800,00 €</td>
+                            </tr>
+                            <tr class="subtotal">
+                                <td colspan="4">Total HT (option non incluse)</td>
+                                <td class="num">0,00 €</td>
+                                <td class="center">—</td>
+                                <td class="num">0,00 €</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section>
+                <div class="section-title">
+                    <h2>5. ACCOMPAGNEMENT EN AMONT</h2>
+                    <div class="section-total">8 400,00 €</div>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Prestation</th>
+                                <th class="center">Qté</th>
+                                <th class="center">Unité</th>
+                                <th class="num">PU HT</th>
+                                <th class="num">Total HT</th>
+                                <th class="center">TVA</th>
+                                <th class="num">Total TTC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="label">Temps Homme - Gestion de projet<span class="cell-sub">Logistique générale — Sélection, logistique et lien permanent avec les BDE</span></td>
+                                <td class="center">12</td>
+                                <td class="center">forfait</td>
+                                <td class="num">600,00 €</td>
+                                <td class="num">7 200,00 €</td>
+                                <td class="center">0%</td>
+                                <td class="num">7 200,00 €</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Temps Homme - Graphiste</td>
+                                <td class="center">1</td>
+                                <td class="center">forfait</td>
+                                <td class="num">1 200,00 €</td>
+                                <td class="num">1 200,00 €</td>
+                                <td class="center">0%</td>
+                                <td class="num">1 200,00 €</td>
+                            </tr>
+                            <tr class="subtotal">
+                                <td colspan="4">Total</td>
+                                <td class="num">8 400,00 €</td>
+                                <td class="center">0%</td>
+                                <td class="num">8 400,00 €</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section>
+                <div class="section-title">
+                    <h2>6. ACCOMPAGNEMENT SUR PLACE</h2>
+                    <div class="section-total">32 498,00 €</div>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Prestation</th>
+                                <th class="center">Qté</th>
+                                <th class="center">Unité</th>
+                                <th class="num">PU HT</th>
+                                <th class="num">Total HT</th>
+                                <th class="center">TVA</th>
+                                <th class="num">Total TTC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="label">Temps Homme Weever - forfait journée<span class="cell-sub">Accompagnement sur place — Journée de 11h dont 1h de pause</span></td>
+                                <td class="center">30</td>
+                                <td class="center">forfait</td>
+                                <td class="num">600,00 €</td>
+                                <td class="num">18 000,00 €</td>
+                                <td class="center">0%</td>
+                                <td class="num">18 000,00 €</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Temps Homme Weever - forfait samedi</td>
+                                <td class="center">1</td>
+                                <td class="center">forfait</td>
+                                <td class="num">400,00 €</td>
+                                <td class="num">400,00 €</td>
+                                <td class="center">0%</td>
+                                <td class="num">400,00 €</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Temps Homme Weever - forfait dimanche</td>
+                                <td class="center">5</td>
+                                <td class="center">forfait</td>
+                                <td class="num">800,00 €</td>
+                                <td class="num">4 000,00 €</td>
+                                <td class="center">0%</td>
+                                <td class="num">4 000,00 €</td>
+                            </tr>
+                            <tr>
+                                <td class="label">VHR - Hébergement<span class="cell-sub">Accompagnement sur place</span></td>
+                                <td class="center">31</td>
+                                <td class="center">pièce</td>
+                                <td class="num">208,00 €</td>
+                                <td class="num">6 448,00 €</td>
+                                <td class="center">0%</td>
+                                <td class="num">6 448,00 €</td>
+                            </tr>
+                            <tr>
+                                <td class="label">VHR - Restauration<span class="cell-sub">Accompagnement sur place</span></td>
+                                <td class="center">68</td>
+                                <td class="center">pièce</td>
+                                <td class="num">25,00 €</td>
+                                <td class="num">1 700,00 €</td>
+                                <td class="center">0%</td>
+                                <td class="num">1 700,00 €</td>
+                            </tr>
+                            <tr>
+                                <td class="label">VHR - Transports<span class="cell-sub">Accompagnement sur place</span></td>
+                                <td class="center">10</td>
+                                <td class="center">pièce</td>
+                                <td class="num">195,00 €</td>
+                                <td class="num">1 950,00 €</td>
+                                <td class="center">0%</td>
+                                <td class="num">1 950,00 €</td>
+                            </tr>
+                            <tr class="subtotal">
+                                <td colspan="4">Total</td>
+                                <td class="num">32 498,00 €</td>
+                                <td class="center">0%</td>
+                                <td class="num">32 498,00 €</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section>
+                <div class="section-title">
+                    <h2>RÉCAPITULATIF FINANCIER</h2>
+                    <div class="section-total">200 481,03 € TTC</div>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Poste</th>
+                                <th class="num">Montant (EUR)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="label">Sous-total HT</td>
+                                <td class="num">185 973,48 €</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Honoraires HT</td>
+                                <td class="num">14 507,55 €</td>
+                            </tr>
+                            <tr class="total-ht">
+                                <td>TOTAL HT</td>
+                                <td class="num">200 481,03 €</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Total TVA</td>
+                                <td class="num">0,00 €</td>
+                            </tr>
+                            <tr class="total-ttc">
+                                <td>TOTAL TTC</td>
+                                <td class="num">200 481,03 €</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section>
+                <div class="section-title">
+                    <h2>ÉCHÉANCIER & CONDITIONS</h2>
+                </div>
+                <div class="conditions">
+                    <div class="condition">
+                        <h3>Solde à régler (TTC)</h3>
+                        <p>Facture unique</p>
+                        <strong>200 481,03 €</strong>
+                    </div>
+                    <div class="condition">
+                        <h3>TVA</h3>
+                        <p>Non applicable</p>
+                        <strong>0%</strong>
+                    </div>
+                    <div class="condition">
+                        <h3>Bilan carbone (option)</h3>
+                        <p>Sur devis, non inclus</p>
+                        <strong>+ 1 800 € HT</strong>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                <span>WEEVUP — DEVIS</span>
+                <span>Holy Campus Tour — roadshow campus</span>
+            </footer>
+        </main>
+    </div>
+</body>
+
+</html>
